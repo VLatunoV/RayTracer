@@ -2,6 +2,6 @@ package geometry
 
 import "../util"
 
-type Sphere struct {
+type TriangleMesh struct {
 	Transform util.Transform
 }
