@@ -1,8 +1,8 @@
 package util
 
 import (
-	"../texture"
 	"math"
+	"github.com/VLatunoV/RayTracer/texture"
 )
 
 type Float float32
@@ -24,7 +24,7 @@ type IntersectInfo struct {
 }
 
 func (n Float) isZero() bool {
-	return math.Abs(n) < 1e-6
+	return math.Abs(float64(n)) < 1e-6
 }
 
 func (n Float) equals(other Float) bool {
@@ -32,7 +32,7 @@ func (n Float) equals(other Float) bool {
 }
 
 func (v *Vec3) Length() Float {
-	return math.Sqrt(v.X * v.X + v.Y * v.Y + v.Z * v.Z)
+	return Float(math.Sqrt(float64(v.X * v.X + v.Y * v.Y + v.Z * v.Z)))
 }
 
 func (v *Vec3) Normalize() {

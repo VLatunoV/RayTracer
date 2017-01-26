@@ -1,4 +1,4 @@
-package src
+package texture
 
 type Shadeable interface {
 	Shade()

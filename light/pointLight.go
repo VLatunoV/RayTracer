@@ -1,8 +1,8 @@
 package light
 
 import (
-	"../util"
-	"../texture"
+	"github.com/VLatunoV/RayTracer/util"
+	"github.com/VLatunoV/RayTracer/texture"
 )
 
 type PointLight struct {

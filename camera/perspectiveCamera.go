@@ -1,7 +1,7 @@
 package camera
 
 import (
-	"../util"
+	"github.com/VLatunoV/RayTracer/util"
 )
 
 type PerspectiveCamera struct {

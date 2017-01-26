@@ -1,6 +1,6 @@
 package geometry
 
-import "../util"
+import "github.com/VLatunoV/RayTracer/util"
 
 // Centered around origin
 type Box struct {

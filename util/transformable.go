@@ -1,6 +1,6 @@
-package src
+package util
 
-import "../util"
+import "github.com/VLatunoV/RayTracer/util"
 
 type Transformable interface {
 	Transform(util.Transform)

@@ -1,6 +1,6 @@
-package src
+package geometry
 
-import "../util"
+import "github.com/VLatunoV/RayTracer/util"
 
 type Intersectable interface {
 	Intersect(*util.IntersectInfo)
