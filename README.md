@@ -47,4 +47,4 @@ An educational ray tracer. It is meant to be a complete application, but can be 
 ## Building
 The project uses [GL](https://github.com/go-gl/gl)/[GLFW](https://github.com/go-gl/glfw) for visualization. Make sure you have the correct dependencies of GLFW installed before building.
 A simple ```go build .``` should do the job.
-If you plan on building more than once, it might be better to use ```go build -i .``` instead.
+If you plan on building more than once, it might be better to use ```go build -i .``` the first time.

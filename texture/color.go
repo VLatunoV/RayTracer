@@ -1,7 +1,7 @@
 package texture
 
 type RGB struct {
-	R, G, B int32
+	R, G, B byte
 }
 
 type SRGB struct {

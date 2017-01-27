@@ -1,8 +1,8 @@
 package util
 
 import (
-	"math"
 	"github.com/VLatunoV/RayTracer/texture"
+	"math"
 )
 
 type Float float32
@@ -13,14 +13,14 @@ type Vec3 struct {
 
 type Transform struct {
 	Translate Vec3
-	Rotate Vec3
-	Scale Vec3
+	Rotate    Vec3
+	Scale     Vec3
 }
 
 type IntersectInfo struct {
 	InterPoint Vec3
-	Normal Vec3
-	uvs texture.UV
+	Normal     Vec3
+	uvs        texture.UV
 }
 
 func (n Float) isZero() bool {
@@ -32,7 +32,7 @@ func (n Float) equals(other Float) bool {
 }
 
 func (v *Vec3) Length() Float {
-	return Float(math.Sqrt(float64(v.X * v.X + v.Y * v.Y + v.Z * v.Z)))
+	return Float(math.Sqrt(float64(v.X*v.X + v.Y*v.Y + v.Z*v.Z)))
 }
 
 func (v *Vec3) Normalize() {
@@ -85,11 +85,11 @@ func mult(a Vec3, s Float) Vec3 {
 func dot(a, b Vec3) Float {
 	a.Normalize()
 	b.Normalize()
-	return Float(a.X * b.X + a.Y * b.Y + a.Z * b.Z)
+	return Float(a.X*b.X + a.Y*b.Y + a.Z*b.Z)
 }
 
 func reflect(in, normal Vec3) Vec3 {
 	normal.Normalize()
 	d := dot(in, normal)
-	return add(in, mult(normal, -2 * d))
+	return add(in, mult(normal, -2*d))
 }

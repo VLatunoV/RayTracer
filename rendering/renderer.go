@@ -1,7 +1,6 @@
 package rendering
 
 type Renderer struct {
-
 }
 
 func (r *Renderer) Attach(v Visualizer) {

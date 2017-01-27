@@ -5,6 +5,6 @@ import (
 )
 
 type PerspectiveCamera struct {
-	Transform util.Transform
+	Transform   util.Transform
 	AspectRatio util.Float
 }
