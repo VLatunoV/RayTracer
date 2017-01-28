@@ -25,8 +25,8 @@ func TestDotProduct(t *testing.T) {
 	}
 	for i, p := range pairs {
 		t.Run(fmt.Sprintf("Running dot product tests %d", i), func(tt *testing.T) {
-			d := dot(p[0].Normalized(), p[1].Normalized())
-			if !d.equals(expected[i]) {
+			d := Dot(p[0].Normalized(), p[1].Normalized())
+			if !d.Equals(expected[i]) {
 				tt.Errorf("Expected %f, but was %f", expected[i], d)
 			}
 		})
