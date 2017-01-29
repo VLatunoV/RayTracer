@@ -27,11 +27,14 @@ func MultMatrix(a, b *Matrix3) Matrix3 {
 }
 
 func (m *Matrix3) Determinant() Float {
-	return (m.Cell[0][0] * (m.Cell[1][1] * m.Cell[2][2] - m.Cell[1][2] * m.Cell[2][1]) +
-	      	m.Cell[0][1] * (m.Cell[1][2] * m.Cell[2][0] - m.Cell[1][0] * m.Cell[2][2]) +
-		m.Cell[0][2] * (m.Cell[1][0] * m.Cell[2][1] - m.Cell[1][1] * m.Cell[2][0]))
+	return (m.Cell[0][0]*(m.Cell[1][1]*m.Cell[2][2]-m.Cell[1][2]*m.Cell[2][1]) +
+		m.Cell[0][1]*(m.Cell[1][2]*m.Cell[2][0]-m.Cell[1][0]*m.Cell[2][2]) +
+		m.Cell[0][2]*(m.Cell[1][0]*m.Cell[2][1]-m.Cell[1][1]*m.Cell[2][0]))
 }
 
+// A^-1 = 1/det(A) * Adj(A)
+// Adj(A) = (c_ij)^T
+// c_ij = cofactor_ij(A)
 func (m *Matrix3) Inverse() Matrix3 {
 	d := m.Determinant()
 	result := Matrix3{}
@@ -54,7 +57,10 @@ func (m *Matrix3) Inverse() Matrix3 {
 					ccol++
 				}
 			}
-			result.Cell[i][j] = (m.Cell[rows[0]][cols[0]] * m.Cell[rows[1]][cols[1]] - m.Cell[rows[1]][cols[0]] * m.Cell[rows[0]][cols[1]]) / d
+			result.Cell[j][i] = (m.Cell[rows[0]][cols[0]]*m.Cell[rows[1]][cols[1]] - m.Cell[rows[1]][cols[0]]*m.Cell[rows[0]][cols[1]]) / d
+			if (i+j)%2 == 1 {
+				result.Cell[j][i] = -result.Cell[j][i]
+			}
 		}
 	}
 	return result

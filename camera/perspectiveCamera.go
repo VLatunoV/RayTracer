@@ -12,8 +12,8 @@ type PerspectiveCamera struct {
 
 func MakePerspectiveCamera(aspectRatio, fov float64) PerspectiveCamera {
 	return PerspectiveCamera{
-		Transform: util.GetIdentityTransform(),
+		Transform:   util.GetIdentityTransform(),
 		AspectRatio: util.Float(aspectRatio),
-		FOV: util.Float(fov),
+		FOV:         util.Float(fov),
 	}
 }

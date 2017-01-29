@@ -20,7 +20,7 @@ func (r *Ray) Apply(transform util.Transform) {
 	r.Pos.Z *= transform.Scale.Z
 
 	r.Pos.ApplyMatrix(transform.RotationMatrix)
-	
+
 	r.Pos.X += transform.Translate.X
 	r.Pos.Y += transform.Translate.Y
 	r.Pos.Z += transform.Translate.Z

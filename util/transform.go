@@ -5,16 +5,16 @@ type Transform struct {
 	Rotate    Vec3
 	Scale     Vec3
 
-	RotationMatrix Matrix3
+	RotationMatrix  Matrix3
 	InverseRotation Matrix3
 }
 
 func GetIdentityTransform() Transform {
 	return Transform{
-		Translate: Vec3{0, 0, 0},
-		Rotate:    Vec3{0, 0, 0},
-		Scale:     Vec3{1, 1, 1},
-		RotationMatrix: GetIdentityMatrix(),
+		Translate:       Vec3{0, 0, 0},
+		Rotate:          Vec3{0, 0, 0},
+		Scale:           Vec3{1, 1, 1},
+		RotationMatrix:  GetIdentityMatrix(),
 		InverseRotation: GetIdentityMatrix(),
 	}
 }
@@ -58,6 +58,6 @@ func (t *Transform) CalculateRotationMatrix() {
 	rotationY := t.GetRotationMatrixY()
 	rotationZ := t.GetRotationMatrixZ()
 	temp := MultMatrix(&rotationZ, &rotationX)
-	t.RotationMatrix =  MultMatrix(&temp, &rotationY)
+	t.RotationMatrix = MultMatrix(&temp, &rotationY)
 	t.InverseRotation = t.RotationMatrix.Inverse()
 }

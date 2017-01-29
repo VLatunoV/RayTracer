@@ -1,8 +1,8 @@
 package geometry
 
 import (
-	"testing"
 	"github.com/VLatunoV/RayTracer/util"
+	"testing"
 )
 
 func vecEq(a, b util.Vec3) bool {
@@ -16,9 +16,9 @@ func vecNotEq(a, b util.Vec3) bool {
 
 func TestRayTransformAndReverse(t *testing.T) {
 	transform := util.Transform{
-		Scale: util.Vec3{1, 1, 1},
+		Scale:     util.Vec3{1, 1, 1},
 		Translate: util.Vec3{10, 0, 0},
-		Rotate: util.Vec3{30, 60, 90},
+		Rotate:    util.Vec3{30, 60, 90},
 	}
 	transform.CalculateRotationMatrix()
 	ray := Ray{

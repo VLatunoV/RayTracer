@@ -1,8 +1,8 @@
 package geometry
 
 import (
-	"github.com/VLatunoV/RayTracer/util"
 	"github.com/VLatunoV/RayTracer/texture"
+	"github.com/VLatunoV/RayTracer/util"
 )
 
 type IntersectInfo struct {

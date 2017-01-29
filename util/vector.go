@@ -5,6 +5,7 @@ import "math"
 type Vec3 struct {
 	X, Y, Z Float
 }
+
 /*
 func (v *Vec3) RotateAroundX(degree Float) {
 	var rad, sin, cos, y_old, z_old float64
@@ -43,9 +44,9 @@ func (v *Vec3) ApplyMatrix(matrix Matrix3) {
 	x := v.X
 	y := v.Y
 	z := v.Z
-	v.X = matrix.Cell[0][0] * x + matrix.Cell[0][1] * y + matrix.Cell[0][2] * z
-	v.Y = matrix.Cell[1][0] * x + matrix.Cell[1][1] * y + matrix.Cell[1][2] * z
-	v.Z = matrix.Cell[2][0] * x + matrix.Cell[2][1] * y + matrix.Cell[2][2] * z
+	v.X = matrix.Cell[0][0]*x + matrix.Cell[0][1]*y + matrix.Cell[0][2]*z
+	v.Y = matrix.Cell[1][0]*x + matrix.Cell[1][1]*y + matrix.Cell[1][2]*z
+	v.Z = matrix.Cell[2][0]*x + matrix.Cell[2][1]*y + matrix.Cell[2][2]*z
 }
 
 func (v *Vec3) Length() Float {
