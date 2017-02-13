@@ -42,19 +42,19 @@ func (m *Matrix3) Inverse() Matrix3 {
 		return result
 	}
 	var rows, cols [2]int
-	var crow, ccol int
+	var row, col int
 	for i := 0; i < 3; i++ {
 		for j := 0; j < 3; j++ {
-			crow = 0
-			ccol = 0
+			row = 0
+			col = 0
 			for k := 0; k < 3; k++ {
 				if i != k {
-					rows[crow] = k
-					crow++
+					rows[row] = k
+					row++
 				}
 				if j != k {
-					cols[ccol] = k
-					ccol++
+					cols[col] = k
+					col++
 				}
 			}
 			result.Cell[j][i] = (m.Cell[rows[0]][cols[0]]*m.Cell[rows[1]][cols[1]] - m.Cell[rows[1]][cols[0]]*m.Cell[rows[0]][cols[1]]) / d

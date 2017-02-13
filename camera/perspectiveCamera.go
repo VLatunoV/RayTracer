@@ -18,7 +18,7 @@ type PerspectiveCamera struct {
 // MakePerspectiveCamera returns a PerspectiveCamera with specified aspect ratio and FOV in degrees
 // Its position is at the origin with the viewing direction along the Z axis
 func MakePerspectiveCamera(aspectRatio, fov float64) PerspectiveCamera {
-	width := util.Float(2.0 * math.Tan(util.DegreeToRad(fov)))
+	width := util.Float(2.0 * math.Tan(util.DegreeToRad(util.Float(fov))))
 	height := width / util.Float(aspectRatio)
 	return PerspectiveCamera{
 		Transform:   util.GetIdentityTransform(),
@@ -39,7 +39,6 @@ func MakePerspectiveCamera(aspectRatio, fov float64) PerspectiveCamera {
 
 // GetRay returns the normalized ray passing through the camera grid at location (x, y), where x and y are the
 // weights of the right and down directions starting from the top left corner.
-// 0 <= x, y <= 1
 // Example: GetRay(0, 0)     --> Ray through the top left corner
 //          GetRay(0.5, 0.5) --> Ray through the center
 //          GetRay(0, 1)     --> Ray through the top right corner
