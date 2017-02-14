@@ -7,5 +7,5 @@ import (
 
 type Node struct {
 	Geometry geometry.Intersectable
-	Texture texture.Shadeable
+	Texture  texture.Shadeable
 }

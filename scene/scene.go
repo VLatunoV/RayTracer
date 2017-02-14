@@ -6,7 +6,7 @@ import (
 )
 
 type Scene struct {
-	Nodes []Node
+	Nodes  []Node
 	Camera camera.PerspectiveCamera
 	Lights []light.Light
 }

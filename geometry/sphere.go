@@ -25,7 +25,7 @@ func (s *Sphere) Intersect(r Ray) (IntersectInfo, bool) {
 	result.Ray = r
 
 	dot := -util.Dot(r.Dir, r.Pos)
-	critical := dot * dot - r.Pos.LengthSqr() + 1
+	critical := dot*dot - r.Pos.LengthSqr() + 1
 	if critical < 0 {
 		return IntersectInfo{}, false
 	}

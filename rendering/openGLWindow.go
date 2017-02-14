@@ -12,7 +12,7 @@ type OpenGLWindow struct {
 	Name   string
 	window *glfw.Window
 
-	requests chan Frame
+	requests  chan Frame
 	completed <-chan Frame
 }
 
@@ -115,9 +115,9 @@ func (w *OpenGLWindow) handleEvents() {
 
 func MakeOpenGLWindow(width, height int) *OpenGLWindow {
 	return &OpenGLWindow{
-		width:  width,
-		height: height,
-		Name:   "RayTracer",
+		width:    width,
+		height:   height,
+		Name:     "RayTracer",
 		requests: make(chan Frame),
 	}
 }

@@ -5,18 +5,18 @@ type Transform struct {
 	Rotate    Vec3
 	Scale     Vec3
 
-	RotationMatrix  Matrix3
-	InverseRotation Matrix3
+	RotationMatrix   Matrix3
+	InverseRotation  Matrix3
 	TransposeInverse Matrix3
 }
 
 func GetIdentityTransform() Transform {
 	return Transform{
-		Translate:       Vec3{0, 0, 0},
-		Rotate:          Vec3{0, 0, 0},
-		Scale:           Vec3{1, 1, 1},
-		RotationMatrix:  GetIdentityMatrix(),
-		InverseRotation: GetIdentityMatrix(),
+		Translate:        Vec3{0, 0, 0},
+		Rotate:           Vec3{0, 0, 0},
+		Scale:            Vec3{1, 1, 1},
+		RotationMatrix:   GetIdentityMatrix(),
+		InverseRotation:  GetIdentityMatrix(),
 		TransposeInverse: GetIdentityMatrix(),
 	}
 }

@@ -3,13 +3,13 @@ package main
 import (
 	"runtime"
 
+	"github.com/VLatunoV/RayTracer/camera"
+	"github.com/VLatunoV/RayTracer/geometry"
+	"github.com/VLatunoV/RayTracer/light"
 	. "github.com/VLatunoV/RayTracer/rendering"
 	"github.com/VLatunoV/RayTracer/scene"
-	"github.com/VLatunoV/RayTracer/camera"
-	"github.com/VLatunoV/RayTracer/light"
 	"github.com/VLatunoV/RayTracer/texture"
 	"github.com/VLatunoV/RayTracer/util"
-	"github.com/VLatunoV/RayTracer/geometry"
 )
 
 func init() {
@@ -32,7 +32,7 @@ func main() {
 
 func makeMyScene(w, h int) scene.Scene {
 	result := scene.Scene{}
-	result.Camera = camera.MakePerspectiveCamera(float64(w) / float64(h), 90)
+	result.Camera = camera.MakePerspectiveCamera(float64(w)/float64(h), 90)
 	result.Camera.SetTransform(util.Transform{
 		Translate: util.Vec3{0, 0, -20},
 	})

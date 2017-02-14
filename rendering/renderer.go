@@ -6,7 +6,7 @@ type Renderer struct {
 	ResolutionX int
 	ResolutionY int
 
-	requests <-chan Frame
+	requests  <-chan Frame
 	completed chan Frame
 
 	Scene *scene.Scene

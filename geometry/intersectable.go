@@ -23,5 +23,3 @@ type Intersectable interface {
 	// Intersect returns the geometry intersection info with a given normalized Ray.
 	Intersect(Ray) (IntersectInfo, bool)
 }
-//X:0.9486832980505138 Y:0.31622776601683794 Z:0
-//X:-0.9348469228349536 Y:0.3550510257216821 Z:0
