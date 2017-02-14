@@ -1,7 +1,5 @@
 package util
 
-import "math"
-
 type Vec3 struct {
 	X, Y, Z Float
 }
@@ -49,8 +47,36 @@ func (v *Vec3) ApplyMatrix(matrix Matrix3) {
 	v.Z = matrix.Cell[2][0]*x + matrix.Cell[2][1]*y + matrix.Cell[2][2]*z
 }
 
-func (v *Vec3) Length() Float {
-	return Float(math.Sqrt(float64(v.X*v.X + v.Y*v.Y + v.Z*v.Z)))
+func (v *Vec3) ApplyTransform(transform Transform) {
+	v.X *= transform.Scale.X
+	v.Y *= transform.Scale.Y
+	v.Z *= transform.Scale.Z
+
+	v.ApplyMatrix(transform.RotationMatrix)
+
+	v.X += transform.Translate.X
+	v.Y += transform.Translate.Y
+	v.Z += transform.Translate.Z
+}
+
+func (v *Vec3) ReverseTransform(transform Transform) {
+	v.X -= transform.Translate.X
+	v.Y -= transform.Translate.Y
+	v.Z -= transform.Translate.Z
+
+	v.ApplyMatrix(transform.InverseRotation)
+
+	v.X /= transform.Scale.X
+	v.Y /= transform.Scale.Y
+	v.Z /= transform.Scale.Z
+}
+
+func (v Vec3) Length() Float {
+	return Sqrt(v.X*v.X + v.Y*v.Y + v.Z*v.Z)
+}
+
+func (v Vec3) LengthSqr() Float {
+	return v.X*v.X + v.Y*v.Y + v.Z*v.Z
 }
 
 func (v *Vec3) Normalize() {
@@ -62,7 +88,7 @@ func (v *Vec3) Normalize() {
 	}
 }
 
-func (v *Vec3) Normalized() Vec3 {
+func (v Vec3) Normalized() Vec3 {
 	result := Vec3{
 		v.X,
 		v.Y,
@@ -72,7 +98,7 @@ func (v *Vec3) Normalized() Vec3 {
 	return result
 }
 
-func (v *Vec3) Neg() Vec3 {
+func (v Vec3) Neg() Vec3 {
 	return Vec3{-v.X, -v.Y, -v.Z}
 }
 
@@ -93,8 +119,6 @@ func Mult(a Vec3, s Float) Vec3 {
 }
 
 func Dot(a, b Vec3) Float {
-	a.Normalize()
-	b.Normalize()
 	return Float(a.X*b.X + a.Y*b.Y + a.Z*b.Z)
 }
 

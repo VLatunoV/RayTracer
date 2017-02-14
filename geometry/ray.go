@@ -15,31 +15,23 @@ func Copy(ray *Ray) Ray {
 }
 
 func (r *Ray) Apply(transform util.Transform) {
-	r.Pos.X *= transform.Scale.X
-	r.Pos.Y *= transform.Scale.Y
-	r.Pos.Z *= transform.Scale.Z
+	r.Pos.ApplyTransform(transform)
 
-	r.Pos.ApplyMatrix(transform.RotationMatrix)
-
-	r.Pos.X += transform.Translate.X
-	r.Pos.Y += transform.Translate.Y
-	r.Pos.Z += transform.Translate.Z
+	r.Dir.X *= transform.Scale.X
+	r.Dir.Y *= transform.Scale.Y
+	r.Dir.Z *= transform.Scale.Z
 
 	r.Dir.ApplyMatrix(transform.RotationMatrix)
 }
 
 func (r *Ray) Reverse(transform util.Transform) {
-	r.Pos.X -= transform.Translate.X
-	r.Pos.Y -= transform.Translate.Y
-	r.Pos.Z -= transform.Translate.Z
-
-	r.Pos.ApplyMatrix(transform.InverseRotation)
-
-	r.Pos.X /= transform.Scale.X
-	r.Pos.Y /= transform.Scale.Y
-	r.Pos.Z /= transform.Scale.Z
+	r.Pos.ReverseTransform(transform)
 
 	r.Dir.ApplyMatrix(transform.InverseRotation)
+
+	r.Dir.X /= transform.Scale.X
+	r.Dir.Y /= transform.Scale.Y
+	r.Dir.Z /= transform.Scale.Z
 }
 
 func (r *Ray) Transformed(transform util.Transform) Ray {

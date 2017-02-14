@@ -7,6 +7,7 @@ type Transform struct {
 
 	RotationMatrix  Matrix3
 	InverseRotation Matrix3
+	TransposeInverse Matrix3
 }
 
 func GetIdentityTransform() Transform {
@@ -16,6 +17,7 @@ func GetIdentityTransform() Transform {
 		Scale:           Vec3{1, 1, 1},
 		RotationMatrix:  GetIdentityMatrix(),
 		InverseRotation: GetIdentityMatrix(),
+		TransposeInverse: GetIdentityMatrix(),
 	}
 }
 
@@ -52,12 +54,13 @@ func (t *Transform) GetRotationMatrixZ() Matrix3 {
 	}
 }
 
-// CalculateRotationMatrix creates the RotationMatrix and InverseRotation for the Transform. The order of rotation is Y -> X -> Z
+// CalculateRotationMatrix creates the RotationMatrix and InverseRotation for the Transform. The order of rotation is Z -> X -> Y
 func (t *Transform) CalculateRotationMatrix() {
 	rotationX := t.GetRotationMatrixX()
 	rotationY := t.GetRotationMatrixY()
 	rotationZ := t.GetRotationMatrixZ()
-	temp := MultMatrix(&rotationZ, &rotationX)
-	t.RotationMatrix = MultMatrix(&temp, &rotationY)
+	temp := MultMatrix(&rotationY, &rotationX)
+	t.RotationMatrix = MultMatrix(&temp, &rotationZ)
 	t.InverseRotation = t.RotationMatrix.Inverse()
+	t.TransposeInverse = t.InverseRotation.Transpose()
 }

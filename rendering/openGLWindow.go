@@ -11,14 +11,17 @@ type OpenGLWindow struct {
 	height int
 	Name   string
 	window *glfw.Window
+
+	requests chan Frame
+	completed <-chan Frame
 }
 
-func (w *OpenGLWindow) GetInputStream() <-chan Frame {
-	return nil
+func (w *OpenGLWindow) SetInputStream(input <-chan Frame) {
+	w.completed = input
 }
 
-func (w *OpenGLWindow) SetOutputStream(<-chan Frame) {
-
+func (w *OpenGLWindow) GetRequestStream() <-chan Frame {
+	return w.requests
 }
 
 // Run should only be called from the main thread.
@@ -115,5 +118,6 @@ func MakeOpenGLWindow(width, height int) *OpenGLWindow {
 		width:  width,
 		height: height,
 		Name:   "RayTracer",
+		requests: make(chan Frame),
 	}
 }

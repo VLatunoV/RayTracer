@@ -65,3 +65,13 @@ func (m *Matrix3) Inverse() Matrix3 {
 	}
 	return result
 }
+
+func (m *Matrix3) Transpose() Matrix3 {
+	result := Matrix3{}
+	for i := 0; i < 3; i++ {
+		for j := 0; j < 3; j++ {
+			result.Cell[i][j] = m.Cell[j][i]
+		}
+	}
+	return result
+}

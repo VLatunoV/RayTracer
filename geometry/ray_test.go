@@ -64,11 +64,11 @@ func TestRayRotateYZ(t *testing.T) {
 		Dir: util.Vec3{0, 2, 0},
 	}
 	ray.Apply(transform)
-	expected := util.Vec3{0, 2, -1}
+	expected := util.Vec3{2, 1, 0}
 	if vecNotEq(ray.Pos, expected) {
 		t.Errorf("Expected ray position %v, but got %v", expected, ray.Pos)
 	}
-	expected = util.Vec3{-2, 0, 0}
+	expected = util.Vec3{0, 0, 2}
 	if vecNotEq(ray.Dir, expected) {
 		t.Errorf("Expected ray direction %v, but got %v", expected, ray.Dir)
 	}
