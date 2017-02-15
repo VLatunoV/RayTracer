@@ -15,7 +15,6 @@ type IntersectInfo struct {
 func (i *IntersectInfo) Apply(t util.Transform) {
 	i.IntersectPoint.ApplyTransform(t)
 	i.Normal.ApplyMatrix(t.TransposeInverse)
-	//i.Normal.ApplyTransform(t)
 	i.Normal.Normalize()
 }
 

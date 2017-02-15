@@ -14,7 +14,7 @@ type PerspectiveCamera struct {
 	downDir     util.Vec3
 }
 
-// Return the default camera directions (front, right, down). Not normalized as their length matters.
+// Return the default camera directions (front, right, down). Not normalized as their lengths matters.
 func getDefaultOrientation(aspectRatio, fov util.Float) (util.Vec3, util.Vec3, util.Vec3) {
 	width := 2.0 * util.Tan(util.DegreeToRad(fov/2.0))
 	height := width / aspectRatio
@@ -42,9 +42,9 @@ func (c *PerspectiveCamera) SetTransform(t util.Transform) {
 
 	c.frontDir, c.rightDir, c.downDir = getDefaultOrientation(c.aspectRatio, c.fov)
 
-	c.frontDir.ApplyTransform(c.transform)
-	c.rightDir.ApplyTransform(c.transform)
-	c.downDir.ApplyTransform(c.transform)
+	c.frontDir.ApplyMatrix(c.transform.RotationMatrix)
+	c.rightDir.ApplyMatrix(c.transform.RotationMatrix)
+	c.downDir.ApplyMatrix(c.transform.RotationMatrix)
 }
 
 // GetRay returns the normalized ray passing through the camera grid at location (x, y), where x and y are the

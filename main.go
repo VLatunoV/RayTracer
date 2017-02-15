@@ -24,13 +24,14 @@ func main() {
 	visualizer := MakeOpenGLWindow(width, height)
 	renderer := MakeRenderer(width, height)
 
+	renderer.Scene = makeMyScene(width, height)
 	// renderer.ReadInput(file)
 	renderer.Attach(visualizer)
 	renderer.Render()
 	visualizer.Run()
 }
 
-func makeMyScene(w, h int) scene.Scene {
+func makeMyScene(w, h int) *scene.Scene {
 	result := scene.Scene{}
 	result.Camera = camera.MakePerspectiveCamera(float64(w)/float64(h), 90)
 	result.Camera.SetTransform(util.Transform{
@@ -46,10 +47,15 @@ func makeMyScene(w, h int) scene.Scene {
 			X: 0, Y: 20, Z: 0,
 		},
 	}
-	result.Nodes = make([]scene.Node, 1)
-	sphere := geometry.MakeSphere(util.Vec3{0, 0, 0}, 1.0)
+	result.Nodes = make([]scene.Node, 2)
+	sphere := geometry.MakeSphere(util.Vec3{-4, 0, 0}, 4.0)
+	sphere2 := geometry.MakeSphere(util.Vec3{6, 20, 50}, 10.0)
+	sphere.Transform.Scale = util.Vec3{1, 1, 1}
 	result.Nodes[0] = scene.Node{
 		Geometry: &sphere,
 	}
-	return result
+	result.Nodes[1] = scene.Node{
+		Geometry: &sphere2,
+	}
+	return &result
 }

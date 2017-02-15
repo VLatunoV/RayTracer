@@ -4,6 +4,7 @@ import (
 	"github.com/go-gl/gl/v4.5-compatibility/gl"
 	"github.com/go-gl/glfw/v3.2/glfw"
 	"unsafe"
+	"github.com/VLatunoV/RayTracer/texture"
 )
 
 type OpenGLWindow struct {
@@ -11,6 +12,8 @@ type OpenGLWindow struct {
 	height int
 	Name   string
 	window *glfw.Window
+
+	image uint32
 
 	requests  chan Frame
 	completed <-chan Frame
@@ -48,7 +51,6 @@ func (w *OpenGLWindow) Run() {
 	}
 	defer gl.Finish()
 
-	var image uint32
 	var imageData unsafe.Pointer
 	pixelData := make([]byte, w.width*w.height*4)
 	for j := 0; j < w.height; j++ {
@@ -62,8 +64,8 @@ func (w *OpenGLWindow) Run() {
 	imageData = unsafe.Pointer(&pixelData[0])
 
 	// Generate a texture to draw on the window.
-	gl.GenBuffers(1, &image)
-	gl.BindTexture(gl.TEXTURE_2D, image)
+	gl.GenBuffers(1, &w.image)
+	gl.BindTexture(gl.TEXTURE_2D, w.image)
 	gl.PixelStorei(gl.UNPACK_ALIGNMENT, 1)
 	gl.TexParameteri(gl.TEXTURE_2D, gl.TEXTURE_WRAP_S, gl.REPEAT)
 	gl.TexParameteri(gl.TEXTURE_2D, gl.TEXTURE_WRAP_T, gl.REPEAT)
@@ -77,12 +79,16 @@ func (w *OpenGLWindow) Run() {
 	gl.Enable(gl.BLEND)
 	gl.BlendFunc(gl.SRC_ALPHA, gl.ONE_MINUS_SRC_ALPHA)
 
+	w.makeBuckets(0, w.width, 0, w.height)
+
 	for !w.window.ShouldClose() {
 		// Do OpenGL stuff.
 		gl.Clear(gl.COLOR_BUFFER_BIT | gl.DEPTH_BUFFER_BIT)
-		w.drawTexture(image)
+		w.drawTexture(w.image)
 		w.handleEvents()
 	}
+
+	w.cleanup()
 }
 
 func (w *OpenGLWindow) drawTexture(texture uint32) {
@@ -111,6 +117,69 @@ func (w *OpenGLWindow) handleEvents() {
 	if w.window.GetKey(glfw.KeyEscape) == 1 {
 		w.window.SetShouldClose(true)
 	}
+	for {
+		select {
+		case frame, ok := <-w.completed:
+			if ok {
+				w.updateTexture(w.image, frame)
+			} else {
+				return
+			}
+		default:
+			return
+		}
+	}
+}
+
+func (w *OpenGLWindow) cleanup() {
+}
+
+func (w *OpenGLWindow) makeBuckets(left, right, top, bottom int) {
+	requestFrames := makeBucketsSquare(left, right, top, bottom)
+	go func() {
+		for _, frame := range requestFrames {
+			w.requests <- frame
+		}
+		close(w.requests)
+	}()
+}
+
+func makeBucketsSquare(left, right, top, bottom int) []Frame {
+	side := 64
+	width := right - left
+	height := bottom - top
+	horizontal := (width - 1) / side + 1
+	vertical := (height - 1) / side + 1
+	sharedUnderlyingArray := make([]texture.RGB, width * height)
+	result := make([]Frame, horizontal * vertical)
+	startOffset := 0
+	index := 0
+	dataSize := 0
+	innerWidth := 0
+	innerHeight := 0
+
+	for y := 0; y < vertical; y++ {
+		for x := 0; x < horizontal; x++ {
+			innerWidth = side
+			innerHeight = side
+			if x == horizontal - 1 {
+				innerWidth = (width - 1) % side + 1
+			}
+			if y == vertical - 1 {
+				innerHeight = (height - 1) % side + 1
+			}
+			index = x + y * horizontal
+			dataSize = innerWidth * innerHeight
+			result[index].X = x * side
+			result[index].Y = y * side
+			result[index].Width = innerWidth
+			result[index].Height = innerHeight
+			result[index].Data = sharedUnderlyingArray[startOffset : startOffset + dataSize]
+			startOffset += dataSize
+		}
+	}
+
+	return result
 }
 
 func MakeOpenGLWindow(width, height int) *OpenGLWindow {
