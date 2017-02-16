@@ -9,6 +9,7 @@ type IntersectInfo struct {
 	IntersectPoint util.Vec3
 	Normal         util.Vec3
 	UVS            texture.UV
+	Distance       util.Float
 	Ray            Ray
 }
 

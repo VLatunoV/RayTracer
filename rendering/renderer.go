@@ -66,7 +66,7 @@ func (r *Renderer) handleRequests() {
 
 func (r *Renderer) traceRay(ray geometry.Ray) bool {
 	for _, node := range r.Scene.Nodes {
-		if _, ok := node.Geometry.Intersect(ray); ok {
+		if _, ok := node.Intersect(ray); ok {
 			return true
 		}
 	}

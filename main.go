@@ -48,14 +48,19 @@ func makeMyScene(w, h int) *scene.Scene {
 		},
 	}
 	result.Nodes = make([]scene.Node, 2)
-	sphere := geometry.MakeSphere(util.Vec3{-4, 0, 0}, 4.0)
-	sphere2 := geometry.MakeSphere(util.Vec3{6, 20, 50}, 10.0)
-	sphere.Transform.Scale = util.Vec3{1, 1, 1}
+	sphere := geometry.Sphere{}
+	sphere2 := geometry.Sphere{}
 	result.Nodes[0] = scene.Node{
 		Geometry: &sphere,
+		Transform: util.GetIdentityTransform(),
 	}
+	result.Nodes[0].Transform.Translate = util.Vec3{-4, 0, 0}
+	result.Nodes[0].Transform.Scale = util.Vec3{4, 4, 4}
 	result.Nodes[1] = scene.Node{
 		Geometry: &sphere2,
+		Transform: util.GetIdentityTransform(),
 	}
+	result.Nodes[1].Transform.Translate = util.Vec3{60, 20, 50}
+	result.Nodes[1].Transform.Scale = util.Vec3{10, 10, 10}
 	return &result
 }
