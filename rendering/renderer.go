@@ -4,6 +4,7 @@ import (
 	"github.com/VLatunoV/RayTracer/scene"
 	"github.com/VLatunoV/RayTracer/geometry"
 	"github.com/VLatunoV/RayTracer/util"
+	"github.com/VLatunoV/RayTracer/texture"
 )
 
 type Renderer struct {
@@ -53,22 +54,30 @@ func (r *Renderer) handleRequests() {
 					(util.Float(request.X + x) + 0.5) / util.Float(r.ResolutionX),
 					(util.Float(request.Y + y) + 0.5) / util.Float(r.ResolutionY))
 				result := r.traceRay(ray)
-				if result {
-					request.SetPixel(x, y, 255, 255, 255)
-				} else {
-					request.SetPixel(x, y, 0, 0, 0)
-				}
+				request.SetPixel(x, y, result.R, result.G, result.B)
 			}
 		}
 		r.completed <- request
 	}
 }
 
-func (r *Renderer) traceRay(ray geometry.Ray) bool {
+func (r *Renderer) traceRay(ray geometry.Ray) texture.RGB {
+	var closestIntersection geometry.IntersectInfo
+	hasIntersection := false
 	for _, node := range r.Scene.Nodes {
-		if _, ok := node.Intersect(ray); ok {
-			return true
+		if ii, ok := node.Intersect(ray); ok {
+			if !hasIntersection {
+				hasIntersection = true
+				closestIntersection = ii
+			}
+			if ii.Distance < closestIntersection.Distance {
+				closestIntersection = ii
+			}
 		}
 	}
-	return false
+	if closestIntersection.Distance.IsZero() {
+		return texture.RGB{0, 0, 0}
+	}
+	val := byte(255.0 / closestIntersection.Distance)
+	return texture.RGB{val, val, val}
 }

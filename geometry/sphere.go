@@ -4,6 +4,7 @@ import (
 	"github.com/VLatunoV/RayTracer/util"
 )
 
+// A canonical sphere is that which is centered on the origin and with radius one.
 type Sphere struct {
 }
 

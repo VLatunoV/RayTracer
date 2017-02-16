@@ -35,7 +35,7 @@ func makeMyScene(w, h int) *scene.Scene {
 	result := scene.Scene{}
 	result.Camera = camera.MakePerspectiveCamera(float64(w)/float64(h), 90)
 	result.Camera.SetTransform(util.Transform{
-		Translate: util.Vec3{0, 0, -20},
+		Translate: util.Vec3{0, 1, -20},
 	})
 	result.Lights = make([]light.Light, 1)
 	result.Lights[0] = light.PointLight{
@@ -47,20 +47,26 @@ func makeMyScene(w, h int) *scene.Scene {
 			X: 0, Y: 20, Z: 0,
 		},
 	}
-	result.Nodes = make([]scene.Node, 2)
+	result.Nodes = make([]scene.Node, 3)
 	sphere := geometry.Sphere{}
 	sphere2 := geometry.Sphere{}
+	plane := geometry.Plane{}
 	result.Nodes[0] = scene.Node{
 		Geometry: &sphere,
 		Transform: util.GetIdentityTransform(),
 	}
-	result.Nodes[0].Transform.Translate = util.Vec3{-4, 0, 0}
+	result.Nodes[0].Transform.Translate = util.Vec3{-4, 0, -7}
 	result.Nodes[0].Transform.Scale = util.Vec3{4, 4, 4}
 	result.Nodes[1] = scene.Node{
 		Geometry: &sphere2,
 		Transform: util.GetIdentityTransform(),
 	}
-	result.Nodes[1].Transform.Translate = util.Vec3{60, 20, 50}
+	result.Nodes[1].Transform.Translate = util.Vec3{5, 4, 15}
 	result.Nodes[1].Transform.Scale = util.Vec3{10, 10, 10}
+	result.Nodes[2] = scene.Node{
+		Geometry: &plane,
+		Transform: util.GetIdentityTransform(),
+	}
+
 	return &result
 }

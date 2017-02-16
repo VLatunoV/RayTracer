@@ -15,7 +15,6 @@ type Node struct {
 
 func (n *Node) Intersect(ray geometry.Ray) (geometry.IntersectInfo, bool) {
 	ray.Reverse(n.Transform)
-
 	factor := ray.Dir.Length()
 	ray.Dir.Normalize()
 
@@ -23,6 +22,7 @@ func (n *Node) Intersect(ray geometry.Ray) (geometry.IntersectInfo, bool) {
 	if !ok {
 		return result, ok
 	}
+	result.Ray = ray
 	result.Apply(n.Transform)
 	result.Distance /= factor
 	return result, ok
