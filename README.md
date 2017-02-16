@@ -1,5 +1,5 @@
 # RayTracer
-An educational ray tracer. It is meant to be a complete application, but can be used as a library-like package.
+An educational ray tracer. It is meant to be a complete application, but can be used as a library-like package. The project uses [GL](https://github.com/go-gl/gl)/[GLFW](https://github.com/go-gl/glfw) for visualization, but can be replaced with a custom solution (eg. in-memory store, write to file).
 
 ## Prerequisites
 * Go compiler
@@ -7,9 +7,7 @@ An educational ray tracer. It is meant to be a complete application, but can be 
 * Installed [go-glfw](https://github.com/go-gl/glfw)
 
 ## Building
-The project uses [GL](https://github.com/go-gl/gl)/[GLFW](https://github.com/go-gl/glfw) for visualization.
-A simple ```go build .``` should do the job.
-If you plan on building more than once, it might be better to use ```go build -i .``` the first time.
+A simple ```go build .``` should do the job. If you plan on building more than once, it might be better to use ```go build -i .``` the first time. A build-and-run scrip is included for convenience.
 
 ## As a minimum it will have these features
 ### Geometry
