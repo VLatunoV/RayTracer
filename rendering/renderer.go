@@ -5,6 +5,7 @@ import (
 	"github.com/VLatunoV/RayTracer/geometry"
 	"github.com/VLatunoV/RayTracer/util"
 	"github.com/VLatunoV/RayTracer/texture"
+	"runtime"
 )
 
 type Renderer struct {
@@ -39,7 +40,10 @@ func (r *Renderer) Render() {
 	if r.Scene == nil {
 		panic("No scene to render.")
 	}
-	go r.handleRequests()
+	numThreads := runtime.NumCPU() - 1
+	for i := 0; i < numThreads; i++ {
+		go r.handleRequests()
+	}
 }
 
 func (r *Renderer) handleRequests() {
