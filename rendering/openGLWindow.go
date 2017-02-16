@@ -182,6 +182,16 @@ func makeBucketsSquare(left, right, top, bottom int) []Frame {
 	return result
 }
 
+func makeOneBucket(left, right, top, bottom int) []Frame {
+	return []Frame{{
+		X: left,
+		Y: top,
+		Width: right - left,
+		Height: bottom - top,
+		Data: make([]texture.RGB, (right - left) * (bottom - top)),
+	}}
+}
+
 func MakeOpenGLWindow(width, height int) *OpenGLWindow {
 	return &OpenGLWindow{
 		width:    width,
