@@ -10,7 +10,7 @@ type Node struct {
 	Geometry  geometry.Intersectable
 	Transform util.Transform
 
-	Texture   texture.Shadeable
+	Texture texture.Shadeable
 }
 
 func (n *Node) Intersect(ray geometry.Ray) *geometry.IntersectInfo {

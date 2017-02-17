@@ -1,10 +1,10 @@
 package rendering
 
 import (
+	"github.com/VLatunoV/RayTracer/texture"
 	"github.com/go-gl/gl/v4.5-compatibility/gl"
 	"github.com/go-gl/glfw/v3.2/glfw"
 	"unsafe"
-	"github.com/VLatunoV/RayTracer/texture"
 )
 
 type OpenGLWindow struct {
@@ -148,10 +148,10 @@ func makeBucketsSquare(left, right, top, bottom int) []Frame {
 	side := 64
 	width := right - left
 	height := bottom - top
-	horizontal := (width - 1) / side + 1
-	vertical := (height - 1) / side + 1
-	sharedUnderlyingArray := make([]texture.RGB, width * height)
-	result := make([]Frame, horizontal * vertical)
+	horizontal := (width-1)/side + 1
+	vertical := (height-1)/side + 1
+	sharedUnderlyingArray := make([]texture.RGB, width*height)
+	result := make([]Frame, horizontal*vertical)
 	startOffset := 0
 	index := 0
 	dataSize := 0
@@ -162,19 +162,19 @@ func makeBucketsSquare(left, right, top, bottom int) []Frame {
 		for x := 0; x < horizontal; x++ {
 			innerWidth = side
 			innerHeight = side
-			if x == horizontal - 1 {
-				innerWidth = (width - 1) % side + 1
+			if x == horizontal-1 {
+				innerWidth = (width-1)%side + 1
 			}
-			if y == vertical - 1 {
-				innerHeight = (height - 1) % side + 1
+			if y == vertical-1 {
+				innerHeight = (height-1)%side + 1
 			}
-			index = x + y * horizontal
+			index = x + y*horizontal
 			dataSize = innerWidth * innerHeight
 			result[index].X = x * side
 			result[index].Y = y * side
 			result[index].Width = innerWidth
 			result[index].Height = innerHeight
-			result[index].Data = sharedUnderlyingArray[startOffset : startOffset + dataSize]
+			result[index].Data = sharedUnderlyingArray[startOffset : startOffset+dataSize]
 			startOffset += dataSize
 		}
 	}
@@ -184,11 +184,11 @@ func makeBucketsSquare(left, right, top, bottom int) []Frame {
 
 func makeOneBucket(left, right, top, bottom int) []Frame {
 	return []Frame{{
-		X: left,
-		Y: top,
-		Width: right - left,
+		X:      left,
+		Y:      top,
+		Width:  right - left,
 		Height: bottom - top,
-		Data: make([]texture.RGB, (right - left) * (bottom - top)),
+		Data:   make([]texture.RGB, (right-left)*(bottom-top)),
 	}}
 }
 

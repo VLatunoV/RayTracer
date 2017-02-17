@@ -21,7 +21,7 @@ func MakeFrame(xoff, yoff, width, height int) Frame {
 }
 
 func (f *Frame) SetPixel(x, y int, r, g, b byte) {
-	index := x + y * f.Width
+	index := x + y*f.Width
 	f.Data[index].R = r
 	f.Data[index].G = g
 	f.Data[index].B = b

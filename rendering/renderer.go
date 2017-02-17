@@ -1,10 +1,10 @@
 package rendering
 
 import (
-	"github.com/VLatunoV/RayTracer/scene"
 	"github.com/VLatunoV/RayTracer/geometry"
-	"github.com/VLatunoV/RayTracer/util"
+	"github.com/VLatunoV/RayTracer/scene"
 	"github.com/VLatunoV/RayTracer/texture"
+	"github.com/VLatunoV/RayTracer/util"
 	"runtime"
 )
 
@@ -55,8 +55,8 @@ func (r *Renderer) handleRequests() {
 		for y := 0; y < request.Height; y++ {
 			for x := 0; x < request.Width; x++ {
 				ray := r.Scene.Camera.GetRay(
-					(util.Float(request.X + x) + 0.5) / util.Float(r.ResolutionX),
-					(util.Float(request.Y + y) + 0.5) / util.Float(r.ResolutionY))
+					(util.Float(request.X+x)+0.5)/util.Float(r.ResolutionX),
+					(util.Float(request.Y+y)+0.5)/util.Float(r.ResolutionY))
 				result := r.traceRay(ray)
 				request.SetPixel(x, y, result.R, result.G, result.B)
 			}

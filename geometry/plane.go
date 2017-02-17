@@ -10,7 +10,7 @@ type Plane struct {
 
 func (p *Plane) Intersect(ray Ray) *IntersectInfo {
 	result := IntersectInfo{}
-	if ray.Pos.Y * ray.Dir.Y > 0 {
+	if ray.Pos.Y*ray.Dir.Y > 0 {
 		return nil
 	}
 	result.Distance = -ray.Pos.Y / ray.Dir.Y

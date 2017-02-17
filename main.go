@@ -74,15 +74,15 @@ func makeMyScene(w, h int) *scene.Scene {
 	plane := geometry.Plane{}
 	result.Nodes = []scene.Node{
 		{
-			Geometry: &sphere,
+			Geometry:  &sphere,
 			Transform: util.GetIdentityTransform(),
 		},
 		{
-			Geometry: &sphere2,
+			Geometry:  &sphere2,
 			Transform: util.GetIdentityTransform(),
 		},
 		{
-			Geometry: &plane,
+			Geometry:  &plane,
 			Transform: util.GetIdentityTransform(),
 		},
 	}
