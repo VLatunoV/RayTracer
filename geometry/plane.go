@@ -1,6 +1,8 @@
 package geometry
 
-import "github.com/VLatunoV/RayTracer/util"
+import (
+	"github.com/VLatunoV/RayTracer/util"
+)
 
 // A canonical plane is that which passes through the Ox and Oz axes
 type Plane struct {
@@ -15,7 +17,7 @@ func (p *Plane) Intersect(ray Ray) *IntersectInfo {
 	if result.Distance.IsZero() {
 		return nil
 	}
-	result.IntersectPoint = util.Mult(ray.Dir, result.Distance)
+	result.IntersectPoint = util.Add(util.Mult(ray.Dir, result.Distance), ray.Pos)
 	result.Normal.Y = 1.0
 	if ray.Pos.Y < 0 {
 		result.Normal.Y = -1.0
