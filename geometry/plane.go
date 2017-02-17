@@ -6,19 +6,19 @@ import "github.com/VLatunoV/RayTracer/util"
 type Plane struct {
 }
 
-func (p *Plane) Intersect(ray Ray) (IntersectInfo, bool) {
+func (p *Plane) Intersect(ray Ray) *IntersectInfo {
 	result := IntersectInfo{}
 	if ray.Pos.Y * ray.Dir.Y > 0 {
-		return result, false
+		return nil
 	}
 	result.Distance = -ray.Pos.Y / ray.Dir.Y
 	if result.Distance.IsZero() {
-		return result, false
+		return nil
 	}
 	result.IntersectPoint = util.Mult(ray.Dir, result.Distance)
 	result.Normal.Y = 1.0
 	if ray.Pos.Y < 0 {
 		result.Normal.Y = -1.0
 	}
-	return result, true
+	return &result
 }

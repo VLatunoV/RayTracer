@@ -66,10 +66,10 @@ func (r *Renderer) handleRequests() {
 }
 
 func (r *Renderer) traceRay(ray geometry.Ray) texture.RGB {
-	var closestIntersection geometry.IntersectInfo
+	var closestIntersection *geometry.IntersectInfo
 	hasIntersection := false
 	for _, node := range r.Scene.Nodes {
-		if ii, ok := node.Intersect(ray); ok {
+		if ii := node.Intersect(ray); ii != nil {
 			if !hasIntersection {
 				hasIntersection = true
 				closestIntersection = ii
@@ -79,9 +79,13 @@ func (r *Renderer) traceRay(ray geometry.Ray) texture.RGB {
 			}
 		}
 	}
-	if closestIntersection.Distance.IsZero() {
+	if closestIntersection == nil {
 		return texture.RGB{0, 0, 0}
 	}
 	val := byte(255.0 / closestIntersection.Distance)
 	return texture.RGB{val, val, val}
+}
+
+func (r *Renderer) shadowRay(start, end util.Vec3) {
+
 }

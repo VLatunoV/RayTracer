@@ -20,6 +20,6 @@ func (i *IntersectInfo) Apply(t util.Transform) {
 }
 
 type Intersectable interface {
-	// Intersect returns the geometry intersection info with a given normalized Ray.
-	Intersect(Ray) (IntersectInfo, bool)
+	// Intersect returns the geometry intersection info with a given normalized Ray. Intersection points equal to the start of the Ray should be ignored.
+	Intersect(Ray) *IntersectInfo
 }

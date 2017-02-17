@@ -13,17 +13,17 @@ type Node struct {
 	Texture   texture.Shadeable
 }
 
-func (n *Node) Intersect(ray geometry.Ray) (geometry.IntersectInfo, bool) {
+func (n *Node) Intersect(ray geometry.Ray) *geometry.IntersectInfo {
 	ray.Reverse(n.Transform)
 	factor := ray.Dir.Length()
 	ray.Dir.Normalize()
 
-	result, ok := n.Geometry.Intersect(ray)
-	if !ok {
-		return result, ok
+	result := n.Geometry.Intersect(ray)
+	if result == nil {
+		return nil
 	}
 	result.Ray = ray
 	result.Apply(n.Transform)
 	result.Distance /= factor
-	return result, ok
+	return result
 }
