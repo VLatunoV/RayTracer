@@ -8,5 +8,5 @@ import (
 type Scene struct {
 	Nodes  []Node
 	Camera camera.PerspectiveCamera
-	Lights []light.Light
+	Lights []light.PointLight
 }

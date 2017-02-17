@@ -41,6 +41,10 @@ func Max(x, y Float) Float {
 	return x
 }
 
+func Clamp(val, lower, upper Float) Float {
+	return Max(Min(val, upper), lower)
+}
+
 func Sqrt(val Float) Float {
 	return Float(math.Sqrt(float64(val)))
 }
