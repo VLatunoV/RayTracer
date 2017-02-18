@@ -4,6 +4,21 @@ type Matrix3 struct {
 	Cell [3][3]Float
 }
 
+func EqMatrix(a, b *Matrix3) bool {
+	for i := 0; i < 3; i++ {
+		for j := 0; j < 3; j++ {
+			if !a.Cell[i][j].Equals(b.Cell[i][j]) {
+				return false
+			}
+		}
+	}
+	return true
+}
+
+func NotEqMatrix(a, b *Matrix3) bool {
+	return !EqMatrix(a, b)
+}
+
 func GetIdentityMatrix() Matrix3 {
 	return Matrix3{
 		Cell: [3][3]Float{

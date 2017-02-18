@@ -5,15 +5,6 @@ import (
 	"testing"
 )
 
-func vecEq(a, b util.Vec3) bool {
-	sub := util.Sub(a, b)
-	return sub.X.IsZero() && sub.Y.IsZero() && sub.Z.IsZero()
-}
-
-func vecNotEq(a, b util.Vec3) bool {
-	return !vecEq(a, b)
-}
-
 func TestRayTransformAndReverse(t *testing.T) {
 	transform := util.Transform{
 		Scale:     util.Vec3{1, 1, 1},
@@ -30,7 +21,7 @@ func TestRayTransformAndReverse(t *testing.T) {
 	ray.Apply(transform)
 	ray.Reverse(transform)
 
-	if vecNotEq(orig.Pos, ray.Pos) {
+	if util.VecNotEq(orig.Pos, ray.Pos) {
 		t.Errorf("Expected original ray [%v] to equal TT^-1 ray [%v]", orig, ray)
 	}
 }
@@ -45,11 +36,11 @@ func TestRayRotateX(t *testing.T) {
 	}
 	ray.Apply(transform)
 	expected := util.Vec3{1, -2, 0}
-	if vecNotEq(ray.Pos, expected) {
+	if util.VecNotEq(ray.Pos, expected) {
 		t.Errorf("Expected ray position %v, but got %v", expected, ray.Pos)
 	}
 	expected = util.Vec3{0, 0, 3}
-	if vecNotEq(ray.Dir, expected) {
+	if util.VecNotEq(ray.Dir, expected) {
 		t.Errorf("Expected ray direction %v, but got %v", expected, ray.Dir)
 	}
 }
@@ -65,11 +56,11 @@ func TestRayRotateYZ(t *testing.T) {
 	}
 	ray.Apply(transform)
 	expected := util.Vec3{2, 1, 0}
-	if vecNotEq(ray.Pos, expected) {
+	if util.VecNotEq(ray.Pos, expected) {
 		t.Errorf("Expected ray position %v, but got %v", expected, ray.Pos)
 	}
 	expected = util.Vec3{0, 0, 2}
-	if vecNotEq(ray.Dir, expected) {
+	if util.VecNotEq(ray.Dir, expected) {
 		t.Errorf("Expected ray direction %v, but got %v", expected, ray.Dir)
 	}
 }

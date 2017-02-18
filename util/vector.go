@@ -4,6 +4,15 @@ type Vec3 struct {
 	X, Y, Z Float
 }
 
+func VecEq(a, b Vec3) bool {
+	sub := Sub(a, b)
+	return sub.X.IsZero() && sub.Y.IsZero() && sub.Z.IsZero()
+}
+
+func VecNotEq(a, b Vec3) bool {
+	return !VecEq(a, b)
+}
+
 /*
 func (v *Vec3) RotateAroundX(degree Float) {
 	var rad, sin, cos, y_old, z_old float64
@@ -119,11 +128,10 @@ func Mult(a Vec3, s Float) Vec3 {
 }
 
 func Dot(a, b Vec3) Float {
-	return Float(a.X*b.X + a.Y*b.Y + a.Z*b.Z)
+	return a.X*b.X + a.Y*b.Y + a.Z*b.Z
 }
 
 func Reflect(in, normal Vec3) Vec3 {
-	normal.Normalize()
 	d := Dot(in, normal)
 	return Add(in, Mult(normal, -2*d))
 }

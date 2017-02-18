@@ -4,21 +4,6 @@ import (
 	"testing"
 )
 
-func eqMatrix(a, b *Matrix3) bool {
-	for i := 0; i < 3; i++ {
-		for j := 0; j < 3; j++ {
-			if !a.Cell[i][j].Equals(b.Cell[i][j]) {
-				return false
-			}
-		}
-	}
-	return true
-}
-
-func notEqMatrix(a, b *Matrix3) bool {
-	return !eqMatrix(a, b)
-}
-
 func TestMultMatrix(t *testing.T) {
 	a := Matrix3{
 		Cell: [3][3]Float{
@@ -42,7 +27,7 @@ func TestMultMatrix(t *testing.T) {
 			{138, 114, 90},
 		},
 	}
-	if notEqMatrix(&c, &expected) {
+	if NotEqMatrix(&c, &expected) {
 		t.Errorf("Expected matrix to equal %v, but was %v", expected, c)
 	}
 }
@@ -58,7 +43,7 @@ func TestInverseIdentity(t *testing.T) {
 	if !dd.Equals(1) {
 		t.Errorf("Expected determinant of inverse to equal 1, but was %f", d)
 	}
-	if notEqMatrix(&I, &II) {
+	if NotEqMatrix(&I, &II) {
 		t.Errorf("Expected inverse of identity to equal the identity, but was %v", II)
 	}
 }
@@ -83,16 +68,16 @@ func TestInverseMatrix(t *testing.T) {
 			{0.040, 0.140, -0.080},
 		},
 	}
-	if notEqMatrix(&b, &expectedInverse) {
+	if NotEqMatrix(&b, &expectedInverse) {
 		t.Errorf("Expected inverse to equal %v, but was %v", expectedInverse, b)
 	}
 	ab := MultMatrix(&a, &b)
 	ba := MultMatrix(&b, &a)
 	expected := GetIdentityMatrix()
-	if notEqMatrix(&expected, &ab) {
+	if NotEqMatrix(&expected, &ab) {
 		t.Errorf("Expected AA^-1 to equal %v, but was %v", expected, ab)
 	}
-	if notEqMatrix(&expected, &ba) {
+	if NotEqMatrix(&expected, &ba) {
 		t.Errorf("Expected A^-1A to equal %v, but was %v", expected, ba)
 	}
 }

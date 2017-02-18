@@ -32,3 +32,21 @@ func TestDotProduct(t *testing.T) {
 		})
 	}
 }
+
+func TestVectorLength(t *testing.T) {
+	vec := Vec3{3, 4, 0}
+	expected := Float(5.0)
+	if !vec.Length().Equals(expected) {
+		t.Errorf("Expected %f, but was %f", expected, vec.Length())
+	}
+}
+
+func TestReflect(t *testing.T) {
+	inVec := Vec3{-1, -1, 0}
+	normal := Vec3{0, 1, 0}
+	reflected := Reflect(inVec, normal)
+	expected := Vec3{-1, 1, 0}
+	if VecNotEq(expected, reflected) {
+		t.Errorf("Expected %+v, but was %+v", expected, reflected)
+	}
+}
